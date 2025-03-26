@@ -50,13 +50,13 @@ You can install Postman via this website: https://www.postman.com/downloads/
 ## Mandatory Checklists (Publisher)
 -   [ ] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Subscriber model struct.`
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Subscriber repository.`
-    -   [ ] Commit: `Implement list_all function in Subscriber repository.`
-    -   [ ] Commit: `Implement delete function in Subscriber repository.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
+    -   [✔] Commit: `Create Subscriber model struct.`
+    -   [✔] Commit: `Create Notification model struct.`
+    -   [✔] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
+    -   [✔] Commit: `Implement add function in Subscriber repository.`
+    -   [✔] Commit: `Implement list_all function in Subscriber repository.`
+    -   [✔] Commit: `Implement delete function in Subscriber repository.`
+    -   [✔] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -77,6 +77,22 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+
+> #### In the Observer pattern diagram explained by the Head First Design Pattern book, Subscriber is defined as an interface. Explain based on your understanding of Observer design patterns, do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model struct is enough?
+
+The observer design pattern is a behavioral design pattern that defines a one-to-many dependency between objects. The use of an interface allows for decoupling between the subject and its observers. When the subject changes state, all of its dependents (observers) will be notified and updated automatically, without needing to know the specifics of each observer type. In thsis BambangShop case, a single Model struct is enough since there is only one kind of subscriber in view.
+
+> #### id in Program and url in Subscriber is intended to be unique. Explain based on your understanding, is using Vec (list) sufficient or using DashMap (map/dictionary) like we currently use is necessary for this case?
+
+```Vec``` is simple and sufficient if the list of subscriber is small and we don't need fast loopups or deletion. However, using ```Vec``` doesn't guarantee the uniqueness unless it is checked manually, and searching/removing a subscriber by ID or URL is O(n), which runs slower as it grows. 
+
+On the other hand, ```DashMap``` supports fast insertion, removal, and lookup by key and ensures uniqueness through the key. Since BambangShop will handle many products in a shop, using ```DashMap``` will provide faster performace than ```Vec```. It also supports safe multithreaded access, which would be more appropriate for multithreaded applications like BambangShop. 
+
+> #### When programming using Rust, we are enforced by rigorous compiler constraints to make a thread-safe program. In the case of the List of Subscribers (SUBSCRIBERS) static variable, we used the DashMap external library for thread safe HashMap. Explain based on your understanding of design patterns, do we still need DashMap or we can implement Singleton pattern instead?
+
+We know that Rust requires safe shared mutable access in multi-threaded context and DashMap is used because it provides interior mutability along with thread safety for concurrent access. The ```Singleton Pattern``` ensures only one instance of a global object, which is often implemented using ```lazy_static!``` in Rust. However, singleton does not ensure thread-safe access by default. 
+
+Since both ensurance of global state and thread-safe concurrent access is required in Bambangshop, we can conclude that DashMap is better to be used than a Singleton pattern as DashMap handles both.  
 
 #### Reflection Publisher-2
 
