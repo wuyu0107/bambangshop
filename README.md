@@ -58,12 +58,12 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [✔] Commit: `Implement delete function in Subscriber repository.`
     -   [✔] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
-    -   [ ] Commit: `Create Notification service struct skeleton.`
-    -   [ ] Commit: `Implement subscribe function in Notification service.`
-    -   [ ] Commit: `Implement subscribe function in Notification controller.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
+    -   [✔] Commit: `Create Notification service struct skeleton.`
+    -   [✔] Commit: `Implement subscribe function in Notification service.`
+    -   [✔] Commit: `Implement subscribe function in Notification controller.`
+    -   [✔] Commit: `Implement unsubscribe function in Notification service.`
+    -   [✔] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [✔] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
 -   **STAGE 3: Implement notification mechanism**
     -   [ ] Commit: `Implement update method in Subscriber model to send notification HTTP requests.`
     -   [ ] Commit: `Implement notify function in Notification service to notify each Subscriber.`
@@ -95,5 +95,17 @@ We know that Rust requires safe shared mutable access in multi-threaded context 
 Since both ensurance of global state and thread-safe concurrent access is required in Bambangshop, we can conclude that DashMap is better to be used than a Singleton pattern as DashMap handles both.  
 
 #### Reflection Publisher-2
+
+> #### In the Model-View Controller (MVC) compound pattern, there is no “Service” and “Repository”. Model in MVC covers both data storage and business logic. Explain based on your understanding of design principles, why we need to separate “Service” and “Repository” from a Model?
+
+In a traditional MVC, the ```Model``` managed both data and business logic. However, as applications grow more complex, combining these responsibilites make it difficult to maintain code. By separating the ```Service``` and ```Repository``` from the model, we can apply the principle of separation of concerns. The Service layer only contains the business logic, along with validations, processing rules, and workflows, which handles actions across different models. The Repository layer only handles data access, abstracting how data is retrieved or stored. 
+
+> #### What happens if we only use the Model? Explain your imagination on how the interactions between each model (Program, Subscriber, Notification) affect the code complexity for each model?
+
+If we only use the Model to handle both business logic and data storage, each model will have more and more responsibilities that extend beyond its own data. For example, if the ```Notification``` model need access ```Subscriber``` and ```Program``` data, validate rules, and trigger updates, all within its own scope. This may lead to tight coupling where models over overly dependent on one another making the system fragile. Having one changes in one area can affect other areas. As a result, the complexity of the code increases, testing becomes more difficult, and potential for bugs grows. 
+
+> #### Have you explored more about Postman? Tell us how this tool helps you to test your current work. You might want to also list which features in Postman you are interested in or feel like it is helpful to help your Group Project or any of your future software engineering projects.
+
+Yes, I have used Postman multiple times within the course. It is used to give help in testing and debugging APIs. It allows for simulation of HTTP requests to the server quickly, view responses, and troubleshoot issues without the need to build the full frontend. Some features I think that may be useful in future projects are automated testing, API documentation generation, and collaborative sharing.
 
 #### Reflection Publisher-3
